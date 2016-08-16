@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var compression = require('compression');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
+var validator = require('express-validator');
 
 module.exports = function () {
   var app = express();
@@ -17,6 +18,8 @@ module.exports = function () {
     extended: true
   }));
   app.use(bodyParser.json());
+  // ใส่ต่อจาก bodyParser ทันที รับค่าจากฟอร์มแล้วให้ validate ทันที
+  app.use(validator());
 
   app.set('views', './app/views');
   app.set('view engine', 'jade');
