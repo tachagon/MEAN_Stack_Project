@@ -4,7 +4,8 @@ var compression = require('compression');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var validator = require('express-validator');
-var cookieSession = require('cookie-session');
+// var cookieSession = require('cookie-session');
+var session = require('express-session');
 
 module.exports = function () {
   var app = express();
@@ -16,9 +17,15 @@ module.exports = function () {
   }
 
   // ใส่ไว้ก่อนจะมีการเรียกใช้ cookie
-  app.use(cookieSession({
-    name: 'session',
-    keys: ['key1', 'key2']
+  // app.use(cookieSession({
+  //   name: 'session',
+  //   keys: ['key1', 'key2']
+  // }));
+
+  app.use(session({
+    secret: 'key',
+    resave: false,
+    saveUninitialized: true
   }));
 
   app.use(bodyParser.urlencoded({
