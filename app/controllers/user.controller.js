@@ -1,3 +1,5 @@
+var User = require('mongoose').model('User');
+
 exports.login = function (req, res) {
   //
   // ดูวิธี validation เพิ่มได้ที่ github.com/chriso/validator.js
@@ -37,4 +39,16 @@ exports.logout = function (req, res) {
     title: 'See you again later',
     isLoggedIn: false
   });
+};
+
+exports.create = function (req, res, next) {
+    var user = new User(req.body);
+
+    user.save(function (err) {
+        if (err) {
+            return next(err);
+        }else {
+            res.json(user);
+        }
+    });
 };
