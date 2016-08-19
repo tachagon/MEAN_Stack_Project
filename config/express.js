@@ -6,6 +6,7 @@ var sass = require('node-sass-middleware');
 var validator = require('express-validator');
 // var cookieSession = require('cookie-session');
 var session = require('express-session');
+var config = require('./config');
 
 module.exports = function () {
   var app = express();
@@ -23,7 +24,7 @@ module.exports = function () {
   // }));
 
   app.use(session({
-    secret: 'key',
+    secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true
   }));
